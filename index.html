@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DevOps Engineer Roadmap 2026 — 互動式學習路線圖</title>
+<meta name="description" content="從 Linux 到 Kubernetes 的 12 階段 DevOps 學習路線圖：每階段附學習重點、關鍵指令、動手專案與可勾選的進度追蹤。">
+<meta name="color-scheme" content="dark light">
+<meta property="og:title" content="DevOps Engineer Roadmap 2026">
+<meta property="og:description" content="12 個階段，從 Linux 到 production infrastructure。互動式學習路線圖，進度自動存在瀏覽器。">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☁️</text></svg>">
+<style>
+/* ============ tokens ============ */
+:root{
+  --bg:#f7f8fa; --bg-alt:#eef1f5; --surface:#ffffff; --surface-2:#f2f5f9;
+  --border:#dde3ec; --border-strong:#c3ccd9;
+  --text:#101724; --text-dim:#54627a; --text-faint:#8492a6;
+  --accent:#0369a1; --accent-soft:#e0f2fe; --accent-line:#0ea5e9;
+  --violet:#6d28d9; --violet-soft:#ede9fe;
+  --ok:#047857; --ok-soft:#d1fae5;
+  --code-bg:#0f1620; --code-text:#dbe6f3;
+  --shadow:0 1px 2px rgba(16,23,36,.06),0 8px 24px -12px rgba(16,23,36,.18);
+  --radius:14px;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+}
+:root[data-theme="dark"]{
+  --bg:#080b10; --bg-alt:#0c1118; --surface:#111823; --surface-2:#161f2c;
+  --border:#1e2938; --border-strong:#2c3b4f;
+  --text:#e7eef7; --text-dim:#95a5bb; --text-faint:#6b7c94;
+  --accent:#38bdf8; --accent-soft:#0b2a3d; --accent-line:#38bdf8;
+  --violet:#a78bfa; --violet-soft:#231b3d;
+  --ok:#34d399; --ok-soft:#0d2f26;
+  --code-bg:#0b1119; --code-text:#d5e3f2;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.8);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{
+  margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%}
+a{color:var(--accent);text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent-line);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1100px,100% - 2.5rem);margin-inline:auto}
+.mono{font-family:var(--mono)}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:1rem;top:-100px;z-index:100;background:var(--accent);color:#fff;padding:.6rem 1rem;border-radius:8px;transition:top .2s}
+.skip:focus{top:1rem}
+
+/* ============ header ============ */
+header.top{
+  position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:color-mix(in srgb,var(--bg) 82%,transparent);
+  border-bottom:1px solid var(--border);
+}
+.top-in{display:flex;align-items:center;gap:1rem;height:64px}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:700;letter-spacing:-.01em;font-size:1rem;text-decoration:none;color:var(--text)}
+.brand .dot{width:10px;height:10px;border-radius:99px;background:var(--accent-line);box-shadow:0 0 0 4px var(--accent-soft)}
+.top-prog{flex:1;display:flex;align-items:center;gap:.75rem;min-width:0}
+.top-bar{flex:1;height:6px;border-radius:99px;background:var(--border);overflow:hidden;max-width:340px}
+.top-bar > i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--accent-line),var(--violet));transition:width .5s cubic-bezier(.4,0,.2,1)}
+.top-pct{font-family:var(--mono);font-size:.8rem;color:var(--text-dim);font-variant-numeric:tabular-nums}
+.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.4rem;
+  height:36px;padding:0 .75rem;border-radius:9px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text-dim);cursor:pointer;font:inherit;font-size:.82rem;
+  transition:.16s;
+}
+.icon-btn:hover{border-color:var(--border-strong);color:var(--text)}
+@media(max-width:820px){.top-prog{display:none}}
+
+/* ============ hero ============ */
+.hero{padding:4.5rem 0 2.5rem;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:-40% 0 auto 50%;translate:-50% 0;width:900px;height:600px;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--accent-line) 20%,transparent),transparent 72%);
+  pointer-events:none;z-index:-1;
+}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.75rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--accent);
+  background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent-line) 30%,transparent);
+  padding:.3rem .7rem;border-radius:99px;
+}
+h1{
+  font-size:clamp(2.1rem,6vw,3.7rem);line-height:1.08;letter-spacing:-.035em;
+  margin:1.1rem 0 0;font-weight:800;
+}
+h1 .grad{background:linear-gradient(105deg,var(--accent-line),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{font-size:clamp(1rem,2.2vw,1.15rem);color:var(--text-dim);max-width:56ch;margin:1.1rem 0 0}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:2rem}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.2rem;border-radius:10px;
+  font-weight:600;font-size:.92rem;text-decoration:none;cursor:pointer;border:1px solid transparent;
+  font-family:inherit;transition:.16s;
+}
+.btn-primary{background:var(--text);color:var(--bg)}
+.btn-primary:hover{opacity:.86}
+.btn-ghost{background:var(--surface);border-color:var(--border);color:var(--text)}
+.btn-ghost:hover{border-color:var(--border-strong)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-top:2.75rem}
+.stat{background:var(--surface);padding:1.1rem 1.2rem}
+.stat b{display:block;font-family:var(--mono);font-size:1.65rem;line-height:1.2;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{font-size:.78rem;color:var(--text-faint);letter-spacing:.02em}
+
+/* ============ section chrome ============ */
+section{padding:3.5rem 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.75rem}
+h2{font-size:clamp(1.4rem,3.4vw,1.9rem);letter-spacing:-.025em;margin:0;font-weight:750}
+.sec-sub{color:var(--text-dim);font-size:.92rem;margin:.4rem 0 0}
+
+/* ============ controls ============ */
+.controls{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin-bottom:1.5rem}
+.search{position:relative;flex:1;min-width:220px}
+.search input{
+  width:100%;height:42px;padding:0 .9rem 0 2.4rem;border-radius:10px;border:1px solid var(--border);
+  background:var(--surface);color:var(--text);font:inherit;font-size:.9rem;
+}
+.search input::placeholder{color:var(--text-faint)}
+.search svg{position:absolute;left:.8rem;top:50%;translate:0 -50%;width:16px;height:16px;stroke:var(--text-faint);fill:none;stroke-width:2}
+.chip{
+  padding:.42rem .8rem;border-radius:99px;border:1px solid var(--border);background:var(--surface);
+  color:var(--text-dim);font:inherit;font-size:.8rem;cursor:pointer;transition:.16s;
+}
+.chip[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+
+/* ============ stage cards ============ */
+.timeline{position:relative;display:flex;flex-direction:column;gap:1rem}
+.timeline::before{
+  content:"";position:absolute;left:23px;top:32px;bottom:32px;width:2px;
+  background:linear-gradient(180deg,var(--border),var(--border) 60%,transparent);z-index:0;
+}
+@media(max-width:700px){.timeline::before{left:17px}}
+
+.stage{position:relative;z-index:1;background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);transition:border-color .2s,box-shadow .2s}
+.stage.is-open{border-color:var(--border-strong)}
+.stage.is-done{border-color:color-mix(in srgb,var(--ok) 45%,var(--border))}
+.stage[hidden]{display:none}
+
+.stage-btn{
+  width:100%;display:flex;align-items:center;gap:1rem;padding:1.05rem 1.15rem;background:none;border:0;
+  font:inherit;color:inherit;text-align:left;cursor:pointer;border-radius:var(--radius);
+}
+.num{
+  flex:none;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+  background:var(--surface-2);border:1px solid var(--border);font-family:var(--mono);
+  font-size:1.15rem;position:relative;transition:.2s;
+}
+.stage.is-done .num{background:var(--ok-soft);border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
+@media(max-width:700px){.num{width:36px;height:36px;font-size:.95rem;border-radius:10px}}
+.st-main{flex:1;min-width:0}
+.st-title{font-weight:700;font-size:1.02rem;letter-spacing:-.015em;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.st-en{font-family:var(--mono);font-size:.72rem;color:var(--text-faint);letter-spacing:.02em;text-transform:uppercase}
+.st-meta{display:flex;gap:.9rem;flex-wrap:wrap;margin-top:.25rem;font-size:.78rem;color:var(--text-faint)}
+.st-right{flex:none;display:flex;align-items:center;gap:.85rem}
+.mini{width:52px;height:4px;border-radius:99px;background:var(--border);overflow:hidden}
+.mini > i{display:block;height:100%;width:0;background:var(--ok);transition:width .35s}
+.mini-txt{font-family:var(--mono);font-size:.74rem;color:var(--text-faint);font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.caret{width:16px;height:16px;stroke:var(--text-faint);fill:none;stroke-width:2.2;transition:rotate .25s}
+.stage.is-open .caret{rotate:180deg}
+@media(max-width:560px){.mini,.mini-txt{display:none}}
+
+.panel{display:none;padding:0 1.15rem 1.35rem;border-top:1px solid var(--border);margin-top:-1px}
+.stage.is-open .panel{display:block}
+.panel > *:first-child{margin-top:1.25rem}
+
+.why{
+  background:var(--surface-2);border-left:3px solid var(--accent-line);border-radius:0 10px 10px 0;
+  padding:.85rem 1rem;font-size:.92rem;color:var(--text-dim);
+}
+.why strong{color:var(--text)}
+
+h3.blk{
+  font-size:.74rem;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-faint);margin:1.75rem 0 .7rem;font-weight:600;
+  display:flex;align-items:center;gap:.55rem;
+}
+h3.blk::after{content:"";flex:1;height:1px;background:var(--border)}
+
+.tags{display:flex;flex-wrap:wrap;gap:.4rem;list-style:none;padding:0;margin:0}
+.tags li{
+  font-family:var(--mono);font-size:.78rem;padding:.28rem .6rem;border-radius:7px;
+  background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);
+}
+
+.cmds{display:flex;flex-direction:column;gap:.5rem;margin:0;padding:0;list-style:none}
+.cmd{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.5rem 1rem;align-items:center;
+  background:var(--code-bg);border:1px solid var(--border);border-radius:10px;padding:.6rem .7rem}
+.cmd code{font-family:var(--mono);font-size:.83rem;color:var(--code-text);word-break:break-word;overflow-wrap:anywhere;white-space:pre-wrap;display:block}
+.cmd .cd{grid-column:1;font-size:.78rem;color:#7d8ea6;margin-top:.15rem}
+.cmd .cp{grid-column:2;grid-row:1/3;align-self:center;background:none;border:1px solid #28374a;
+  color:#7d8ea6;border-radius:7px;height:28px;padding:0 .55rem;font:inherit;font-size:.72rem;cursor:pointer;transition:.15s}
+.cmd .cp:hover{color:#dbe6f3;border-color:#3d5271}
+.cmd .cp.ok{color:var(--ok);border-color:var(--ok)}
+
+.proj{background:var(--violet-soft);border:1px solid color-mix(in srgb,var(--violet) 28%,transparent);
+  border-radius:12px;padding:1rem 1.1rem}
+.proj h4{margin:0 0 .5rem;font-size:.98rem;letter-spacing:-.01em}
+.proj ol{margin:0;padding-left:1.2rem;font-size:.9rem;color:var(--text-dim)}
+.proj ol li{margin:.3rem 0}
+
+.checks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.15rem}
+.checks li{margin:0}
+.checks label{
+  display:flex;gap:.7rem;align-items:flex-start;padding:.5rem .6rem;border-radius:9px;
+  cursor:pointer;font-size:.91rem;transition:background .15s;
+}
+.checks label:hover{background:var(--surface-2)}
+.checks input{
+  flex:none;appearance:none;width:19px;height:19px;margin:.22rem 0 0;border-radius:6px;
+  border:1.5px solid var(--border-strong);background:var(--surface);cursor:pointer;transition:.15s;position:relative;
+}
+.checks input:checked{background:var(--ok);border-color:var(--ok)}
+.checks input:checked::after{
+  content:"";position:absolute;left:5.5px;top:2px;width:5px;height:10px;
+  border:solid #fff;border-width:0 2px 2px 0;rotate:45deg;
+}
+.checks input:checked + span{color:var(--text-faint);text-decoration:line-through}
+.checks span{transition:.15s}
+
+.links{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0;margin:0}
+.links a{
+  display:inline-flex;align-items:center;gap:.4rem;font-size:.83rem;text-decoration:none;color:var(--text-dim);
+  border:1px solid var(--border);background:var(--surface-2);border-radius:8px;padding:.35rem .7rem;transition:.15s;
+}
+.links a:hover{color:var(--accent);border-color:var(--accent-line)}
+.links a::after{content:"↗";font-size:.72rem;opacity:.6}
+
+/* ============ cheatsheet ============ */
+.cheat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.cheat table{width:100%;border-collapse:collapse;font-size:.86rem}
+.cheat th{text-align:left;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-faint);padding:.7rem 1rem;border-bottom:1px solid var(--border);font-weight:600;background:var(--surface-2)}
+.cheat td{padding:.6rem 1rem;border-bottom:1px solid var(--border);vertical-align:top}
+.cheat tr:last-child td{border-bottom:0}
+.cheat code{font-family:var(--mono);font-size:.82rem;color:var(--accent);word-break:break-word;overflow-wrap:anywhere;white-space:pre-wrap}
+.cheat td:last-child{color:var(--text-dim)}
+.cheat tr[hidden]{display:none}
+.tbl-scroll{overflow-x:auto}
+.empty{padding:2rem 1rem;text-align:center;color:var(--text-faint);font-size:.9rem}
+
+/* ============ misc ============ */
+.note{display:flex;gap:.8rem;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:12px;padding:1rem 1.1rem;font-size:.9rem;color:var(--text-dim)}
+.note b{color:var(--text)}
+footer{border-top:1px solid var(--border);padding:2.5rem 0 3.5rem;margin-top:2rem;color:var(--text-faint);font-size:.85rem}
+footer a{color:var(--text-dim)}
+.foot-row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center}
+
+.toast{
+  position:fixed;left:50%;bottom:1.5rem;translate:-50% 12px;z-index:99;opacity:0;pointer-events:none;
+  background:var(--text);color:var(--bg);padding:.6rem 1.1rem;border-radius:99px;font-size:.85rem;font-weight:500;
+  transition:.25s;
+}
+.toast.show{opacity:1;translate:-50% 0}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+@media print{header.top,.controls,.hero-cta,.icon-btn{display:none}.panel{display:block!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#roadmap">跳到路線圖</a>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="#top"><span class="dot"></span>DevOps Roadmap <span class="mono" style="color:var(--text-faint);font-weight:500">2026</span></a>
+    <div class="top-prog">
+      <div class="top-bar" role="progressbar" aria-label="總體學習進度" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="topBar"><i></i></div>
+      <span class="top-pct" id="topPct">0%</span>
+    </div>
+    <button class="icon-btn" id="themeBtn" aria-label="切換深淺色主題"><span id="themeIcon">◐</span><span class="themeTxt">主題</span></button>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">☁️ 12 stages · self-paced</span>
+    <h1>從 Linux 到 Production，<br><span class="grad">一條走得完的 DevOps 路線</span></h1>
+    <p class="lede">
+      不要只是把程式碼部署出去。要建立<strong>自動化、可擴展、安全、可靠</strong>的基礎設施。
+      這裡把 12 個階段拆成看得懂的學習重點、非背不可的指令，以及每一階段結束時你應該做得出來的東西。
+      勾選進度會自動存在你的瀏覽器裡。
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#roadmap">開始第一階段 →</a>
+      <a class="btn btn-ghost" href="#cheatsheet">指令速查表</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="sDone">0<span style="color:var(--text-faint);font-size:1rem">/12</span></b><span>階段完成</span></div>
+      <div class="stat"><b id="sChecks">0<span style="color:var(--text-faint);font-size:1rem">/0</span></b><span>學習項目完成</span></div>
+      <div class="stat"><b id="sWeeks">—</b><span>建議總時程</span></div>
+      <div class="stat"><b id="sNext" style="font-size:1.05rem;line-height:1.5">Stage 1</b><span>下一步</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>學習路線圖</h2>
+        <p class="sec-sub">依序推進即可；每個階段先讀「為什麼重要」，再動手做「練習專案」，最後回來勾選清單。</p>
+      </div>
+      <div style="display:flex;gap:.5rem">
+        <button class="icon-btn" id="expandAll">全部展開</button>
+        <button class="icon-btn" id="resetBtn">重置進度</button>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" id="q" placeholder="搜尋階段、工具或指令（例如：docker、憑證、terraform）" aria-label="搜尋階段">
+      </div>
+      <button class="chip" data-filter="all" aria-pressed="true">全部</button>
+      <button class="chip" data-filter="todo" aria-pressed="false">未完成</button>
+      <button class="chip" data-filter="done" aria-pressed="false">已完成</button>
+    </div>
+
+    <div class="timeline" id="timeline"></div>
+    <p class="empty" id="noResult" hidden>找不到符合的階段，換個關鍵字試試。</p>
+  </div>
+</section>
+
+<section id="cheatsheet" style="background:var(--bg-alt);border-block:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <h2>指令速查表</h2>
+        <p class="sec-sub">整條路線上最常打的指令，全部集中在這裡。忘記的時候不用翻回上面。</p>
+      </div>
+      <div class="search" style="max-width:280px;flex:none;min-width:200px">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input type="search" id="cq" placeholder="篩選指令…" aria-label="篩選指令">
+      </div>
+    </div>
+    <div class="cheat">
+      <div class="tbl-scroll">
+        <table>
+          <caption class="sr">DevOps 常用指令速查表</caption>
+          <thead><tr><th style="width:34%">指令</th><th style="width:46%">用途</th><th style="width:20%">階段</th></tr></thead>
+          <tbody id="cheatBody"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="noCmd" hidden>沒有符合的指令。</p>
+    </div>
+  </div>
+</section>
+
+<section id="howto">
+  <div class="wrap">
+    <div class="sec-head"><div>
+      <h2>怎麼用這份路線圖</h2>
+      <p class="sec-sub">路線是線性的，但學習不是。以下四點比順序本身更重要。</p>
+    </div></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem">
+      <div class="note"><span aria-hidden="true">①</span><div><b>一次只推進一個階段。</b>同時開六個新工具是最常見的失敗模式。前一階段的練習專案做得出來，才往下走。</div></div>
+      <div class="note"><span aria-hidden="true">②</span><div><b>用專案綁住知識。</b>每階段的練習專案都放進同一個 GitHub repo，最後你會有一條完整的、可以拿去面試講的 pipeline。</div></div>
+      <div class="note"><span aria-hidden="true">③</span><div><b>壞掉是課程的一部分。</b>刻意把服務弄壞、再修好，比照著教學打一遍學到的多。第 10、12 階段特別靠這個。</div></div>
+      <div class="note"><span aria-hidden="true">④</span><div><b>雲端費用要設上限。</b>第 5 階段開始就先設好 budget alert，並養成用完 <code class="mono">destroy</code> 收乾淨的習慣。</div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <p style="margin:0">DevOps Engineer Roadmap 2026 · 進度儲存在你自己的瀏覽器，不會上傳到任何地方。</p>
+    <p style="margin:0" class="mono">Don't just deploy code. Build infrastructure.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* =========================================================
+   DevOps Engineer Roadmap 2026 — 資料
+   ========================================================= */
+const STAGES = [
+{
+  n:1, icon:"🐧", title:"Linux", en:"The machine underneath", weeks:"3–4 週",
+  why:"幾乎所有的 server、container、CI runner 跑的都是 Linux。<strong>後面 11 個階段出的每一個錯，最後都會變成一個 Linux 問題</strong>——權限不對、磁碟滿了、程序沒起來。這一階段學不紮實，後面每一階段都會慢一倍。",
+  topics:["檔案系統結構","權限與擁有者 (chmod/chown)","程序與訊號","套件管理 apt/yum","systemd 服務","日誌 journalctl","SSH 與金鑰","磁碟與掛載"],
+  cmds:[
+    {c:"ls -la /var/log", d:"列出檔案含權限、擁有者、隱藏檔"},
+    {c:"chmod 600 ~/.ssh/id_ed25519", d:"修正 SSH 私鑰權限（權限太鬆 SSH 會直接拒絕）"},
+    {c:"ps aux | grep nginx", d:"找出正在跑的程序"},
+    {c:"systemctl status nginx && journalctl -u nginx -n 50", d:"看服務狀態與最近 50 行日誌"},
+    {c:"df -h && du -sh /var/* | sort -h", d:"磁碟滿了的時候第一個要打的兩行"},
+    {c:"ssh-keygen -t ed25519 -C \"你的信箱\"", d:"產生現代規格的 SSH 金鑰對"}
+  ],
+  proj:{t:"練習專案：把一台空機器變成 web server",
+    s:["用 VirtualBox / Multipass / 雲端免費方案開一台 Ubuntu","建立非 root 使用者、設好 sudo、關掉密碼登入只留金鑰","安裝 nginx，改首頁，用 systemctl 設成開機自動啟動","故意把設定檔改壞，靠 journalctl 找出原因並修好"]},
+  check:["能在不查 Google 的情況下解釋 rwx 與 755 / 644 的差別","能用 systemctl 啟動、停止、查詢一個服務","能用 ssh 金鑰登入遠端主機且已停用密碼登入","能用 grep / less / tail -f 在日誌裡找出錯誤","知道磁碟滿了要先看哪裡"],
+  res:[{n:"Linux Journey",u:"https://linuxjourney.com/"},{n:"OverTheWire: Bandit",u:"https://overthewire.org/wargames/bandit/"},{n:"explainshell",u:"https://explainshell.com/"}]
+},
+{
+  n:2, icon:"🌐", title:"Networking", en:"How packets actually move", weeks:"2–3 週",
+  why:"「我本機可以跑」跟「線上連不上」之間的差距，九成是網路。DNS、防火牆規則、TLS 憑證、port 沒開——<strong>這些是你未來三年最常被叫去救的問題類型</strong>。K8s 的 Service 與 Ingress 也完全建立在這些概念上。",
+  topics:["OSI / TCP-IP 分層","IP、子網路與 CIDR","DNS 解析流程","TCP vs UDP","HTTP/HTTPS 與 TLS 握手","防火牆與 security group","反向代理與負載平衡","NAT 與 port forwarding"],
+  cmds:[
+    {c:"dig +short example.com", d:"查 DNS 記錄，確認網域指到哪"},
+    {c:"curl -I https://example.com", d:"只看回應標頭與狀態碼"},
+    {c:"ss -tulpn", d:"看本機有哪些 port 正在監聽（netstat 的現代版）"},
+    {c:"traceroute example.com", d:"看封包走過哪些節點、在哪一跳斷掉"},
+    {c:"openssl s_client -connect example.com:443 -servername example.com", d:"檢查 TLS 憑證與鏈"},
+    {c:"nc -zv example.com 443", d:"測試某個 port 通不通"}
+  ],
+  proj:{t:"練習專案：把一個網域接到自己的機器上",
+    s:["買一個便宜網域（或用免費的 DuckDNS）","設 A record 指向第 1 階段那台主機，用 dig 驗證","裝 Caddy 或 certbot，讓網站跑在 HTTPS 上","用 curl -I 與 openssl s_client 驗證憑證有效、HTTP 會自動導到 HTTPS"]},
+  check:["能解釋一次 DNS 查詢從瀏覽器到回應的完整路徑","看到 CIDR 10.0.1.0/24 能說出它有幾個可用 IP","能用 ss / curl 判斷「服務沒起來」還是「防火牆擋住」","能說明 TLS 憑證在握手中做了什麼","知道反向代理與負載平衡器的差別"],
+  res:[{n:"Cloudflare Learning Center",u:"https://www.cloudflare.com/learning/"},{n:"Practical Networking",u:"https://www.practicalnetworking.net/"},{n:"How DNS Works（漫畫版）",u:"https://howdns.works/"}]
+},
+{
+  n:3, icon:"🔧", title:"Git + GitHub", en:"Version control as infrastructure", weeks:"1–2 週",
+  why:"在 DevOps 裡 Git 不只是存程式碼——<strong>它是所有自動化的觸發器</strong>。CI 因為 push 而跑、部署因為 tag 而發生、基礎設施的狀態記在 repo 裡。分支策略沒想清楚，第 7 階段的 pipeline 就會一團亂。",
+  topics:["commit / branch / merge 的心智模型","rebase 與 merge 的取捨","衝突解決","Pull Request 與 code review","tag 與語意化版本",".gitignore 與機密外洩","GitHub Actions 觸發條件","保護分支規則"],
+  cmds:[
+    {c:"git switch -c feat/add-healthcheck", d:"開新分支並切過去（比 checkout 更明確）"},
+    {c:"git rebase -i HEAD~3", d:"把最近三個 commit 整理成乾淨的歷史"},
+    {c:"git log --oneline --graph --all", d:"用圖形化方式看分支結構"},
+    {c:"git tag -a v1.0.0 -m \"first release\" && git push --tags", d:"打版本標籤並推上去（常被用來觸發部署）"},
+    {c:"git revert <commit>", d:"安全地回退已推送的 commit（不要用 reset --hard 改寫公開歷史）"},
+    {c:"git remote -v", d:"確認目前推去哪個 remote"}
+  ],
+  proj:{t:"練習專案：建立你的 devops-lab repo",
+    s:["建一個 GitHub repo，每個階段一個資料夾","寫好 README、.gitignore，設定分支保護規則","用 feature branch + PR 的流程加入第 1、2 階段的設定檔","打 v0.1.0 tag，並在 GitHub 上開一個 Release"]},
+  check:["能解釋 merge 與 rebase 產生的歷史差異","能自己解掉一次 merge conflict","知道 .env / 金鑰絕對不能進 repo，以及不小心進去了要怎麼辦","能開一個帶說明的 PR 並自我 review","理解 SemVer 的 MAJOR.MINOR.PATCH 各代表什麼"],
+  res:[{n:"Learn Git Branching（互動）",u:"https://learngitbranching.js.org/?locale=zh_TW"},{n:"Pro Git 中文版",u:"https://git-scm.com/book/zh-tw/v2"},{n:"Oh Shit, Git!?!",u:"https://ohshitgit.com/"}]
+},
+{
+  n:4, icon:"💻", title:"Bash + Python", en:"Automate the boring parts", weeks:"3–4 週",
+  why:"DevOps 的核心動作是「把重複做三次以上的事情寫成腳本」。<strong>Bash 負責黏合系統指令，Python 負責處理邏輯、API 與資料</strong>。這一階段是你從「會操作工具」變成「會造工具」的分水嶺。",
+  topics:["變數、條件、迴圈","set -euo pipefail 的重要性","參數處理與 exit code","管線與文字處理 (awk/sed/jq)","Python 虛擬環境","requests 打 API","subprocess 與檔案操作","argparse 做 CLI"],
+  cmds:[
+    {c:"#!/usr/bin/env bash\nset -euo pipefail", d:"每個 Bash 腳本的前兩行：出錯就停、未定義變數報錯"},
+    {c:"curl -s https://api.github.com/repos/torvalds/linux | jq '.stargazers_count'", d:"打 API 並用 jq 取出欄位"},
+    {c:"python3 -m venv .venv && source .venv/bin/activate", d:"建立並啟用虛擬環境（不要污染系統 Python）"},
+    {c:"awk '{print $1}' access.log | sort | uniq -c | sort -rn | head", d:"從日誌統計出前幾名的 IP"},
+    {c:"shellcheck deploy.sh", d:"靜態檢查 Bash 腳本（強烈建議放進 CI）"},
+    {c:"chmod +x deploy.sh && ./deploy.sh --env staging", d:"讓腳本可執行並帶參數呼叫"}
+  ],
+  proj:{t:"練習專案：寫一支健康檢查腳本",
+    s:["Bash 版：讀一份網址清單，逐一 curl 並回報狀態碼與回應時間","失敗時 exit code 非 0，方便之後被 CI 判定為失敗","Python 版：改用 requests + argparse，輸出 JSON 報告","用 cron 每 5 分鐘跑一次，結果寫進日誌檔"]},
+  check:["寫的每支 Bash 腳本都有 set -euo pipefail 且通過 shellcheck","能用 exit code 讓腳本在自動化流程中被正確判定成功/失敗","能用 Python 讀環境變數、打 API、處理 JSON","能用 jq 從巢狀 JSON 取出需要的欄位","知道什麼時候該從 Bash 換成 Python（大約在需要資料結構的時候）"],
+  res:[{n:"Automate the Boring Stuff",u:"https://automatetheboringstuff.com/"},{n:"Bash Guide (Greg's Wiki)",u:"https://mywiki.wooledge.org/BashGuide"},{n:"ShellCheck",u:"https://www.shellcheck.net/"}]
+},
+{
+  n:5, icon:"☁️", title:"Cloud：AWS / Azure / GCP", en:"Someone else's computer, on demand", weeks:"4–6 週",
+  why:"雲端把「買一台機器要等兩週」變成「API call 三秒」。這一階段真正要學的<strong>不是某家廠商的按鈕位置，而是網路、身分權限、儲存、計費這四個共通模型</strong>——學會一家，換一家只是換名詞。先選一家學到深，不要三家都摸一點。",
+  topics:["選一家先深入（建議 AWS）","IAM 與最小權限原則","VPC、子網路、security group","運算：EC2 / VM / Compute Engine","物件儲存：S3 / Blob / GCS","託管資料庫","計費模型與 budget alert","可用區與區域"],
+  cmds:[
+    {c:"aws configure && aws sts get-caller-identity", d:"設定憑證並確認自己現在是誰（除錯第一步）"},
+    {c:"aws ec2 describe-instances --query \"Reservations[].Instances[].[InstanceId,State.Name]\" --output table", d:"用表格列出所有執行個體"},
+    {c:"aws s3 sync ./site s3://my-bucket --delete", d:"把本機資料夾同步到物件儲存"},
+    {c:"az vm list -o table", d:"Azure：列出虛擬機"},
+    {c:"gcloud compute instances list", d:"GCP：列出執行個體"},
+    {c:"aws budgets describe-budgets --account-id <id>", d:"確認預算警示有設好（第一天就該做）"}
+  ],
+  proj:{t:"練習專案：手動蓋一次三層架構",
+    s:["建立 VPC，切出 public 與 private 子網路","public 放一台跑 nginx 的 VM，private 放資料庫，用 security group 限制只有 VM 連得到 DB","把靜態檔案放上物件儲存，開成靜態網站","設好 budget alert，做完當天就全部刪掉並確認帳單歸零"]},
+  check:["能畫出自己蓋的 VPC 架構圖並解釋每條流量路徑","理解 IAM role 與 user 的差別，且不再用 root 帳號日常操作","已設定 MFA 與 budget alert","知道自己每個月被收多少錢、被什麼收","能用 CLI（不是只有網頁介面）完成上述所有事"],
+  res:[{n:"AWS Free Tier",u:"https://aws.amazon.com/free/"},{n:"Microsoft Learn: Azure",u:"https://learn.microsoft.com/training/azure/"},{n:"Google Cloud Free Program",u:"https://cloud.google.com/free"}]
+},
+{
+  n:6, icon:"🐳", title:"Docker", en:"Ship the environment, not just the code", weeks:"2–3 週",
+  why:"容器解決的是「在我電腦上可以跑」這個古老問題：<strong>把應用程式和它的執行環境打包成一個可重現的映像檔</strong>。第 7 階段的 CI、第 9 階段的 Kubernetes，全部建立在這一層之上。這是整條路線的技術樞紐。",
+  topics:["映像檔 vs 容器","Dockerfile 分層與快取","多階段建置縮小映像","volume 與資料持久化","container 網路","docker compose 多服務","映像檔倉庫 registry","容器安全基礎（非 root 執行）"],
+  cmds:[
+    {c:"docker build -t myapp:1.0 .", d:"從 Dockerfile 建置映像檔並打標籤"},
+    {c:"docker run -d -p 8080:80 --name web myapp:1.0", d:"背景執行容器並做 port 對應"},
+    {c:"docker logs -f web", d:"即時追蹤容器日誌（容器起不來的第一步）"},
+    {c:"docker exec -it web sh", d:"進到容器內部看實際檔案狀態"},
+    {c:"docker compose up -d --build", d:"一次啟動整組服務"},
+    {c:"docker image prune -a && docker system df", d:"清掉沒用的映像檔並查看磁碟占用"}
+  ],
+  proj:{t:"練習專案：把第 4 階段的腳本容器化",
+    s:["寫 Dockerfile 把健康檢查工具打包起來，用非 root 使用者執行","用多階段建置把映像檔壓到 100MB 以下並記錄前後大小","寫 docker-compose.yml 起 app + Postgres + 一個 volume","把映像檔推到 GitHub Container Registry (ghcr.io)"]},
+  check:["能解釋 image、container、volume 三者的關係","知道 Dockerfile 指令順序如何影響 build 快取","做過一次多階段建置並明顯縮小映像檔","能用 compose 起一組互相依賴的服務","容器不用 root 執行，且沒有把祕密寫進映像檔"],
+  res:[{n:"Docker 官方入門",u:"https://docs.docker.com/get-started/"},{n:"Play with Docker（線上環境）",u:"https://labs.play-with-docker.com/"},{n:"Dockerfile 最佳實踐",u:"https://docs.docker.com/build/building/best-practices/"}]
+},
+{
+  n:7, icon:"⚙️", title:"CI/CD", en:"GitHub Actions / Jenkins", weeks:"3–4 週",
+  why:"這是「DevOps 工程師」這個職位真正的日常。<strong>每一次 push 都自動測試、建置、部署，讓上線從一件緊張的事變成一件無聊的事。</strong>沒有 CI/CD，前面六個階段的成果都還是靠人手動接起來的。",
+  topics:["CI 與 CD 的差別","workflow / job / step 結構","matrix 平行測試","快取加速建置","secrets 管理","artifact 與 registry 推送","環境與人工核准","部署策略：藍綠 / 金絲雀"],
+  cmds:[
+    {c:"on:\n  push:\n    branches: [main]", d:"GitHub Actions：定義觸發條件"},
+    {c:"gh workflow run deploy.yml --ref main", d:"用 CLI 手動觸發 workflow"},
+    {c:"gh run watch", d:"在終端機即時看 CI 執行結果"},
+    {c:"gh secret set AWS_ROLE_ARN", d:"設定 repository secret（不要把金鑰寫進 yaml）"},
+    {c:"act -j build", d:"用 act 在本機先跑一次 Actions，省下反覆 push 除錯"},
+    {c:"gh run rerun <run-id> --failed", d:"只重跑失敗的 job"}
+  ],
+  proj:{t:"練習專案：完整的建置與部署流水線",
+    s:["push 到任何分支 → 跑 lint（shellcheck）與測試","合併到 main → 建置 Docker 映像檔並推到 ghcr.io","打 tag → 自動部署到第 5 階段的雲端主機","刻意讓測試失敗一次，確認部署真的被擋下來"]},
+  check:["能讀懂並自己寫出一份 workflow yaml","知道 secrets 該放哪裡，且 repo 裡沒有任何明文金鑰","pipeline 會在測試失敗時阻擋部署","能用快取讓建置時間明顯縮短","能說明藍綠部署與金絲雀部署的差別與適用情境"],
+  res:[{n:"GitHub Actions 文件",u:"https://docs.github.com/actions"},{n:"Jenkins 使用手冊",u:"https://www.jenkins.io/doc/book/"},{n:"act：本機跑 Actions",u:"https://github.com/nektos/act"}]
+},
+{
+  n:8, icon:"🏗️", title:"Terraform / IaC", en:"Infrastructure as Code", weeks:"3–4 週",
+  why:"第 5 階段你是用滑鼠蓋出基礎設施的——那不可重現、不可 review、也回不去。<strong>IaC 把整座機房變成 repo 裡的程式碼</strong>：可以 diff、可以 PR、可以一鍵重建。這是「手動運維」與「基礎設施工程」的正式分界線。",
+  topics:["宣告式 vs 命令式","provider 與 resource","state 檔與遠端 backend","變數、輸出與 locals","module 化與重用","plan / apply / destroy 流程","漂移偵測 drift","Ansible 做設定管理的定位"],
+  cmds:[
+    {c:"terraform init", d:"下載 provider 並初始化 backend"},
+    {c:"terraform plan -out=tfplan", d:"先看會改動什麼——永遠不要跳過這一步"},
+    {c:"terraform apply tfplan", d:"套用剛剛檢視過的那份計畫"},
+    {c:"terraform destroy", d:"整組拆掉（練習完務必執行，避免被收錢）"},
+    {c:"terraform fmt -recursive && terraform validate", d:"格式化與語法檢查，適合放進 CI"},
+    {c:"terraform state list", d:"列出 state 裡管理的所有資源"}
+  ],
+  proj:{t:"練習專案：用程式碼重建第 5 階段的架構",
+    s:["把手動蓋的 VPC、VM、security group 全部改寫成 Terraform","state 放到遠端 backend（S3 + DynamoDB lock 或 Terraform Cloud）","抽出一個可重用的 module，用變數切換 dev / prod","destroy 之後再 apply 一次，驗證能完整重建"]},
+  check:["能解釋 state 檔是什麼、為什麼不能放進 Git","apply 前一定先看 plan 的輸出","寫過至少一個自己的 module 並用變數參數化","知道資源被手動改掉時 plan 會顯示什麼（drift）","terraform fmt 與 validate 已納入 CI"],
+  res:[{n:"HashiCorp Terraform 教學",u:"https://developer.hashicorp.com/terraform/tutorials"},{n:"Terraform Registry",u:"https://registry.terraform.io/"},{n:"Ansible 文件",u:"https://docs.ansible.com/"}]
+},
+{
+  n:9, icon:"☸️", title:"Kubernetes", en:"Orchestration at scale", weeks:"6–8 週",
+  why:"當容器從 3 個變成 300 個，人就管不動了。K8s 負責<strong>排程、自我修復、擴縮容與服務發現</strong>。它也是整條路線最陡的一段——前面的 Linux、網路、Docker 沒打穩，這裡會很痛苦。慢慢來，這階段花的時間本來就該是別階段的兩倍。",
+  topics:["Pod / ReplicaSet / Deployment","Service 與 Ingress","ConfigMap 與 Secret","Namespace 與資源限制","Volume 與 StatefulSet","liveness / readiness probe","HPA 自動擴縮","Helm 套件管理"],
+  cmds:[
+    {c:"kind create cluster --name lab", d:"在本機用 Docker 開一座測試叢集"},
+    {c:"kubectl get pods -A -o wide", d:"看所有 namespace 的 Pod 跑在哪個節點"},
+    {c:"kubectl describe pod <pod>", d:"Pod 起不來時最重要的一行——看 Events"},
+    {c:"kubectl logs -f deploy/myapp --tail=100", d:"追蹤 Deployment 的日誌"},
+    {c:"kubectl apply -f k8s/ && kubectl rollout status deploy/myapp", d:"套用設定並等待滾動更新完成"},
+    {c:"kubectl port-forward svc/myapp 8080:80", d:"不開對外入口也能在本機測試服務"}
+  ],
+  proj:{t:"練習專案：把第 6 階段的服務跑上叢集",
+    s:["用 kind 或 minikube 建本機叢集，部署 app + Postgres","設定 liveness / readiness probe，並故意讓 app 掛掉觀察自我修復","用 ConfigMap 與 Secret 抽離設定，加上 Ingress 對外","做一次滾動更新，再用 rollout undo 回滾"]},
+  check:["能解釋 Pod、Deployment、Service 三者的關係","Pod 卡在 CrashLoopBackOff 時知道用哪些指令查原因","設定過 probe 並親眼看到 K8s 自動重啟容器","能做滾動更新與回滾","知道 Secret 預設只是 base64、不是加密"],
+  res:[{n:"Kubernetes 官方互動教學",u:"https://kubernetes.io/docs/tutorials/kubernetes-basics/"},{n:"Killercoda 免費實驗環境",u:"https://killercoda.com/"},{n:"kind（本機叢集）",u:"https://kind.sigs.k8s.io/"}]
+},
+{
+  n:10, icon:"📊", title:"Monitoring + Observability", en:"Know before your users do", weeks:"3–4 週",
+  why:"監控回答「壞了沒」，可觀測性回答「為什麼壞」。<strong>沒有這一層，你只能等使用者來告訴你網站掛了</strong>。這一階段也是你開始用數據（而不是感覺）討論可靠性的起點：SLI、SLO、error budget。",
+  topics:["三大支柱：metrics / logs / traces","Prometheus 與 PromQL","Grafana 儀表板","alerting 與 on-call","集中式日誌 (Loki / ELK)","分散式追蹤 (OpenTelemetry)","SLI / SLO / error budget","告警疲勞與可行動告警"],
+  cmds:[
+    {c:"curl localhost:9090/metrics", d:"看應用程式暴露出來的原始指標"},
+    {c:"rate(http_requests_total[5m])", d:"PromQL：每秒請求數"},
+    {c:"histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m]))", d:"PromQL：p95 延遲——比平均值有意義得多"},
+    {c:"kubectl top pods", d:"快速看 Pod 的 CPU / 記憶體用量"},
+    {c:"promtool check rules alerts.yml", d:"檢查告警規則語法"},
+    {c:"docker compose -f monitoring.yml up -d", d:"一次拉起 Prometheus + Grafana"}
+  ],
+  proj:{t:"練習專案：幫你的服務裝上儀表板",
+    s:["在叢集裡部署 Prometheus + Grafana","讓 app 暴露 /metrics，收集請求數、延遲、錯誤率","做一張儀表板呈現黃金四訊號（延遲、流量、錯誤、飽和度）","設一條告警規則：錯誤率超過 5% 持續 5 分鐘就通知，然後刻意觸發它"]},
+  check:["能解釋 metrics、logs、traces 各自適合回答什麼問題","會寫基本 PromQL 並算出 p95","做過一張自己看得懂的 Grafana 儀表板","設過一條會真的響、而且響了知道要做什麼的告警","能用自己的話說明 SLO 與 error budget"],
+  res:[{n:"Prometheus 文件",u:"https://prometheus.io/docs/introduction/overview/"},{n:"Grafana 教學",u:"https://grafana.com/tutorials/"},{n:"Google SRE Book（免費全文）",u:"https://sre.google/books/"}]
+},
+{
+  n:11, icon:"🔐", title:"Security + Secrets", en:"Shift left, lock down", weeks:"3–4 週",
+  why:"安全不是上線前最後一關，而是<strong>每一階段都該內建的預設值</strong>。這一階段回頭把前面十個階段的漏洞補起來：硬編碼的金鑰、過寬的 IAM 權限、有漏洞的基礎映像、沒人看的相依套件。也是最容易在履歷上做出差異的一段。",
+  topics:["最小權限原則","祕密管理 (Vault / Secrets Manager)","OIDC 取代長效金鑰","映像檔漏洞掃描","相依套件掃描 SCA","IaC 靜態掃描","憑證輪替","OWASP Top 10 基礎"],
+  cmds:[
+    {c:"trivy image myapp:1.0", d:"掃描映像檔的已知漏洞"},
+    {c:"gitleaks detect --source .", d:"掃出 repo 歷史裡外洩的金鑰"},
+    {c:"tfsec . || checkov -d .", d:"掃描 Terraform 的不安全設定"},
+    {c:"vault kv get secret/myapp/db", d:"從 Vault 取出祕密而不是寫死在檔案裡"},
+    {c:"aws iam simulate-principal-policy --policy-source-arn <arn> --action-names s3:DeleteBucket", d:"驗證權限是不是給太寬"},
+    {c:"kubectl create secret generic db --from-literal=pass=... --dry-run=client -o yaml", d:"產生 Secret 資源（記得搭配 SOPS 或 sealed-secrets 才能進 Git）"}
+  ],
+  proj:{t:"練習專案：把自己的 pipeline 加固",
+    s:["用 gitleaks 掃過整個 repo 歷史，處理掉任何外洩的憑證","在 CI 加入 trivy 與 tfsec，有高風險漏洞就擋下","把 CI 的雲端長效金鑰換成 OIDC 短期憑證","收斂 IAM 政策到最小權限，並用 simulate 驗證"]},
+  check:["repo 裡（含歷史）沒有任何明文祕密","CI 會自動掃描映像檔與 IaC 的漏洞","CI 已改用 OIDC 而非長期存活的 access key","能解釋為什麼 K8s Secret 需要額外加密才能進 Git","知道相依套件出現 CVE 時的處理流程"],
+  res:[{n:"OWASP Top 10",u:"https://owasp.org/www-project-top-ten/"},{n:"HashiCorp Vault 教學",u:"https://developer.hashicorp.com/vault/tutorials"},{n:"Trivy 文件",u:"https://trivy.dev/"}]
+},
+{
+  n:12, icon:"🚀", title:"Deploy & Operate Production", en:"Where it all comes together", weeks:"持續進行",
+  why:"最後一階段不是新工具，而是<strong>把前面十一個階段接成一條真的有人在用的系統，然後對它負責</strong>。備份能不能還原？半夜掛了誰接？出事之後有沒有寫下來？這些才是把「學過 DevOps」變成「做過 DevOps」的部分。",
+  topics:["GitOps (ArgoCD / Flux)","備份與還原演練","災難復原 RTO / RPO","事故處理流程","無指責事後檢討 postmortem","runbook 與交接文件","容量規劃與成本優化","混沌工程入門"],
+  cmds:[
+    {c:"argocd app sync myapp", d:"GitOps：讓叢集狀態向 Git 對齊"},
+    {c:"kubectl rollout undo deploy/myapp", d:"部署出事時的第一個動作：先回滾，再查原因"},
+    {c:"velero backup create prod-$(date +%F)", d:"備份叢集資源與磁碟區"},
+    {c:"velero restore create --from-backup prod-2026-09-06", d:"實際演練還原——沒還原過的備份不算備份"},
+    {c:"terraform plan -detailed-exitcode", d:"在 CI 偵測基礎設施漂移"},
+    {c:"kubectl get events --sort-by=.lastTimestamp -A", d:"事故當下快速掌握叢集發生了什麼"}
+  ],
+  proj:{t:"練習專案：跑一次完整的正式營運循環",
+    s:["用 ArgoCD 把部署改成 GitOps：改 Git 就會改叢集","做一次完整備份並真的還原到新環境，記下花了多久（這就是你的 RTO）","刻意製造一次事故（刪掉一個 Deployment / 灌爆 CPU），照流程處理","寫一份無指責的 postmortem 與一份 runbook 放進 repo"]},
+  check:["部署完全由 Git 驅動，沒有人手動 kubectl apply 到正式環境","做過至少一次真實的還原演練並知道自己的 RTO/RPO","寫過一份 postmortem，且產出了具體的改進項目","有一份別人照著做也能救回服務的 runbook","能對著整張架構圖，從 commit 講到使用者請求"],
+  res:[{n:"Google SRE Workbook",u:"https://sre.google/workbook/table-of-contents/"},{n:"The Twelve-Factor App",u:"https://12factor.net/zh_cn/"},{n:"Argo CD 文件",u:"https://argo-cd.readthedocs.io/"}]
+}
+];
+
+/* =========================================================
+   狀態（localStorage，取不到就退回記憶體）
+   ========================================================= */
+const KEY = "devops-roadmap-2026:v1";
+let mem = {};
+const store = {
+  read(){ try{ return JSON.parse(localStorage.getItem(KEY) || "{}"); }catch(e){ return mem; } },
+  write(v){ mem = v; try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){} }
+};
+let state = store.read();
+
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cid = (n,i) => "s"+n+"-c"+i;
+const totalChecks = STAGES.reduce((a,s)=>a+s.check.length,0);
+const doneIn = s => s.check.filter((_,i)=>state[cid(s.n,i)]).length;
+
+/* =========================================================
+   畫出階段卡片
+   ========================================================= */
+function stageHTML(s){
+  const done = doneIn(s), tot = s.check.length, full = done===tot;
+  return `
+  <article class="stage${full?" is-done":""}" data-n="${s.n}" data-text="${esc((s.title+" "+s.en+" "+s.topics.join(" ")+" "+s.cmds.map(c=>c.c).join(" ")+" "+s.why.replace(/<[^>]+>/g,"")).toLowerCase())}">
+    <button class="stage-btn" aria-expanded="false" aria-controls="p${s.n}">
+      <span class="num" aria-hidden="true">${full?"✓":s.icon}</span>
+      <span class="st-main">
+        <span class="st-title">Stage ${s.n} · ${esc(s.title)} <span class="st-en">${esc(s.en)}</span></span>
+        <span class="st-meta"><span>⏱ ${esc(s.weeks)}</span><span>📌 ${tot} 個檢查點</span><span>🧪 1 個練習專案</span></span>
+      </span>
+      <span class="st-right">
+        <span class="mini" aria-hidden="true"><i style="width:${tot?done/tot*100:0}%"></i></span>
+        <span class="mini-txt">${done}/${tot}</span>
+        <svg class="caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+      </span>
+    </button>
+    <div class="panel" id="p${s.n}">
+      <p class="why">${s.why}</p>
+
+      <h3 class="blk">學什麼</h3>
+      <ul class="tags">${s.topics.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
+
+      <h3 class="blk">關鍵指令</h3>
+      <ul class="cmds">${s.cmds.map(c=>`
+        <li class="cmd">
+          <code>${esc(c.c)}</code>
+          <span class="cd">${esc(c.d)}</span>
+          <button class="cp" data-copy="${esc(c.c)}" aria-label="複製指令">複製</button>
+        </li>`).join("")}</ul>
+
+      <h3 class="blk">動手做</h3>
+      <div class="proj">
+        <h4>${esc(s.proj.t)}</h4>
+        <ol>${s.proj.s.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>
+      </div>
+
+      <h3 class="blk">完成這階段的標準</h3>
+      <ul class="checks">${s.check.map((c,i)=>`
+        <li><label>
+          <input type="checkbox" data-id="${cid(s.n,i)}"${state[cid(s.n,i)]?" checked":""}>
+          <span>${esc(c)}</span>
+        </label></li>`).join("")}</ul>
+
+      <h3 class="blk">推薦資源</h3>
+      <ul class="links">${s.res.map(r=>`<li><a href="${esc(r.u)}" target="_blank" rel="noopener noreferrer">${esc(r.n)}</a></li>`).join("")}</ul>
+    </div>
+  </article>`;
+}
+
+const timeline = document.getElementById("timeline");
+timeline.innerHTML = STAGES.map(stageHTML).join("");
+
+/* 指令速查表 */
+document.getElementById("cheatBody").innerHTML = STAGES.flatMap(s =>
+  s.cmds.map(c => `<tr data-text="${esc((c.c+" "+c.d+" "+s.title).toLowerCase())}">
+    <td><code>${esc(c.c)}</code></td><td>${esc(c.d)}</td>
+    <td style="white-space:nowrap;color:var(--text-faint)" class="mono">${s.n}. ${esc(s.title)}</td></tr>`)
+).join("");
+
+/* =========================================================
+   進度計算
+   ========================================================= */
+function refresh(){
+  let checks = 0, stagesDone = 0, next = null;
+  STAGES.forEach(s=>{
+    const d = doneIn(s); checks += d;
+    const card = timeline.querySelector(`.stage[data-n="${s.n}"]`);
+    const full = d === s.check.length;
+    if(full) stagesDone++; else if(!next) next = s;
+    card.classList.toggle("is-done", full);
+    card.querySelector(".num").textContent = full ? "✓" : s.icon;
+    card.querySelector(".mini > i").style.width = (d/s.check.length*100)+"%";
+    card.querySelector(".mini-txt").textContent = d+"/"+s.check.length;
+  });
+  const pct = Math.round(checks/totalChecks*100);
+  document.getElementById("topBar").setAttribute("aria-valuenow", pct);
+  document.querySelector("#topBar > i").style.width = pct+"%";
+  document.getElementById("topPct").textContent = pct+"%";
+  document.getElementById("sDone").innerHTML = stagesDone+'<span style="color:var(--text-faint);font-size:1rem">/12</span>';
+  document.getElementById("sChecks").innerHTML = checks+'<span style="color:var(--text-faint);font-size:1rem">/'+totalChecks+'</span>';
+  document.getElementById("sWeeks").textContent = "約 9–12 個月";
+  document.getElementById("sNext").textContent = next ? ("Stage "+next.n+" · "+next.title) : "🏆 全部完成";
+  applyFilter();
+}
+
+/* =========================================================
+   互動
+   ========================================================= */
+const toastEl = document.getElementById("toast");
+let toastT;
+function toast(msg){
+  toastEl.textContent = msg; toastEl.classList.add("show");
+  clearTimeout(toastT); toastT = setTimeout(()=>toastEl.classList.remove("show"), 1800);
+}
+
+timeline.addEventListener("click", e => {
+  const head = e.target.closest(".stage-btn");
+  if(head){
+    const card = head.closest(".stage");
+    const open = card.classList.toggle("is-open");
+    head.setAttribute("aria-expanded", open);
+    return;
+  }
+  const cp = e.target.closest(".cp");
+  if(cp){
+    const txt = cp.getAttribute("data-copy");
+    const done = () => { cp.textContent="已複製"; cp.classList.add("ok"); setTimeout(()=>{cp.textContent="複製";cp.classList.remove("ok");},1400); };
+    if(navigator.clipboard && window.isSecureContext){
+      navigator.clipboard.writeText(txt).then(done).catch(()=>toast("複製失敗，請手動選取"));
+    } else {
+      const ta = document.createElement("textarea");
+      ta.value = txt; ta.style.position="fixed"; ta.style.opacity="0";
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand("copy"); done(); }catch(err){ toast("複製失敗，請手動選取"); }
+      document.body.removeChild(ta);
+    }
+  }
+});
+
+timeline.addEventListener("change", e => {
+  const box = e.target.closest('input[type="checkbox"]');
+  if(!box) return;
+  const id = box.getAttribute("data-id");
+  if(box.checked) state[id] = 1; else delete state[id];
+  store.write(state);
+  const before = document.querySelectorAll(".stage.is-done").length;
+  refresh();
+  const after = document.querySelectorAll(".stage.is-done").length;
+  if(after > before) toast("🎉 Stage 完成！下一階段解鎖");
+});
+
+/* 篩選 + 搜尋 */
+let filter = "all";
+const qEl = document.getElementById("q");
+function applyFilter(){
+  const q = qEl.value.trim().toLowerCase();
+  let shown = 0;
+  timeline.querySelectorAll(".stage").forEach(card => {
+    const isDone = card.classList.contains("is-done");
+    const okF = filter==="all" || (filter==="done" && isDone) || (filter==="todo" && !isDone);
+    const okQ = !q || card.getAttribute("data-text").includes(q);
+    const vis = okF && okQ;
+    card.hidden = !vis;
+    if(vis) shown++;
+  });
+  document.getElementById("noResult").hidden = shown > 0;
+}
+qEl.addEventListener("input", applyFilter);
+document.querySelectorAll(".chip").forEach(btn => btn.addEventListener("click", () => {
+  filter = btn.getAttribute("data-filter");
+  document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", String(b===btn)));
+  applyFilter();
+}));
+
+/* 速查表篩選 */
+const cqEl = document.getElementById("cq");
+cqEl.addEventListener("input", () => {
+  const q = cqEl.value.trim().toLowerCase();
+  let shown = 0;
+  document.querySelectorAll("#cheatBody tr").forEach(tr => {
+    const vis = !q || tr.getAttribute("data-text").includes(q);
+    tr.hidden = !vis; if(vis) shown++;
+  });
+  document.getElementById("noCmd").hidden = shown > 0;
+});
+
+/* 全部展開 / 收合 */
+const expandBtn = document.getElementById("expandAll");
+expandBtn.addEventListener("click", () => {
+  const anyClosed = [...timeline.querySelectorAll(".stage:not([hidden])")].some(c => !c.classList.contains("is-open"));
+  timeline.querySelectorAll(".stage").forEach(c => {
+    c.classList.toggle("is-open", anyClosed);
+    c.querySelector(".stage-btn").setAttribute("aria-expanded", String(anyClosed));
+  });
+  expandBtn.textContent = anyClosed ? "全部收合" : "全部展開";
+});
+
+/* 重置 */
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if(!confirm("確定要清除所有勾選進度嗎？這個動作無法復原。")) return;
+  state = {}; store.write(state);
+  timeline.querySelectorAll('input[type="checkbox"]').forEach(b => b.checked = false);
+  refresh(); toast("進度已清除");
+});
+
+/* 主題 */
+const root = document.documentElement, themeIcon = document.getElementById("themeIcon");
+function setTheme(t){
+  root.setAttribute("data-theme", t);
+  themeIcon.textContent = t === "dark" ? "☀" : "☾";
+  try{ localStorage.setItem(KEY+":theme", t); }catch(e){}
+}
+let saved = null;
+try{ saved = localStorage.getItem(KEY+":theme"); }catch(e){}
+setTheme(saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"));
+document.getElementById("themeBtn").addEventListener("click", () =>
+  setTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark"));
+
+/* 開場：展開第一個未完成的階段 */
+refresh();
+(function openFirstTodo(){
+  const first = STAGES.find(s => doneIn(s) < s.check.length) || STAGES[0];
+  const card = timeline.querySelector(`.stage[data-n="${first.n}"]`);
+  card.classList.add("is-open");
+  card.querySelector(".stage-btn").setAttribute("aria-expanded","true");
+})();
+</script>
+</body>
+</html>
